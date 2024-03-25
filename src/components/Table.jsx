@@ -15,7 +15,7 @@ const LimRaw= ({onChangeLimit=()=>undefined})=>{
 
 const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= null}) => {
 
-    const TableHeadings = config.map(({head, Head, headProp={}},headIdx) =>Head? <Head key={head+ headIdx} {...headProp}/>:head);
+    const TableHeadings = config.map(({head, Head, headProp={}},headIdx,Icon) =>Head? <Head key={head+ headIdx} {...headProp}/>:head);
     const action = actions.map((each)=>each.name);
     const { Next = null, Prev = null } = pagination?.buttons || {}
     const {LimitComp=LimRaw} =pagination;
@@ -78,15 +78,6 @@ const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= n
 
 
 
-    function convertTimeToAMPM(isoTime) {
-      const date = new Date(isoTime);
-      const hours = date.getHours();
-      const minutes = date.getMinutes();
-      const ampm = hours >= 12 ? 'PM' : 'AM';
-      const formattedHours = hours % 12 || 12;
-      const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-      return `${formattedHours}:${formattedMinutes} ${ampm}`;
-    }
   
  
     return (
@@ -127,10 +118,10 @@ const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= n
                             } else {
                               value = row[key];
                             }
-                            return <td 
+                            return<td
                             key={`key-${ind}`}
                             onClick={() => onClick && onClick(row)}
-                            style={{cursor:"pointer",padding:''}}
+                            style={{cursor:"pointer",padding:'15px', paddingLeft:'20px'}}
                             >{modify(value) || value}</td>;
                           })
                           }

@@ -2,6 +2,7 @@ import  { useState, useRef, useEffect } from 'react';
 
 const CustomDropdown = ({ options = [], Icon , selectedOption = '', setSelectedOption =()=>undefined, handleOptionClick = ()=>undefined}) => {
   const [isOpen, setIsOpen] = useState(false);
+  console.log(isOpen)
   // const [selectedOption, setSelectedOption] = useState(null);
   const dropdownRef = useRef(null);
 

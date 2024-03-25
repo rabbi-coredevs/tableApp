@@ -55,6 +55,7 @@ const Bot = () => {
                       >
                         <CloseIcon />
                         <span>Cancel</span>
+                        
                       </div>
                       <div
                         className="flex text-white bg-blue-700 text-[14px]  px-3 py-2 rounded items-center gap-1 cursor-pointer select-none "

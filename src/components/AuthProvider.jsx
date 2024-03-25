@@ -10,7 +10,7 @@ const AuthProvider = ({ children }) => {
     useEffect(()=> {
         getApiCall('/user/me').then(res=>{
             setLoading(false);
-            // console.log(res);
+            console.log(res);
             if(res.status === 200){
                 setUser(res.data);
             }  

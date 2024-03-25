@@ -5,10 +5,15 @@ import ColumnChart from "./ColumnChart";
 import DownIcon from "../../assets/Vector.svg?react";
 import { useEffect, useState } from "react";
 import Table from "../Table";
-import { CaretLeft, CaretRight,} from "@phosphor-icons/react";
-import RemoveIcon from '../../assets/RemoveAll.svg?react'
-import RemoveButton from '../../assets/Remove.svg?react';
-import rawData from '../Admins.json';
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import RemoveButton from "../../assets/Remove.svg?react";
+import rawData from "./UserStat.json";
+import CardComp from "./CardComp";
+import Icon1 from "../../assets/SVGRepo_iconCarrier (1).svg?react";
+import Icon2 from "../../assets/Icon.svg?react";
+import Icon3 from "../../assets/Frame (2).svg?react";
+import Icon4 from "../../assets/Frame (1).svg?react";
+import UpDownIcon from "../../assets/AscDscIcon.svg?react";
 
 //Limit Component
 const LimitComponent = ({ onChangeLimit = () => undefined }) => {
@@ -24,16 +29,12 @@ const LimitComponent = ({ onChangeLimit = () => undefined }) => {
   );
 };
 
-
 const Statistics = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [isOpen, setIsOpen] = useState(false);
-  const [checkedData,setCheckedData] = useState([]);
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
-  const [limit, setLimit] = useState(10); 
-  const [isConfirmModalOpen,setIsConfirmModalOpen] = useState(false);
-  const [selectedRow,setSelectedRow] = useState([]);
+  const [limit, setLimit] = useState(10);
 
   const DropDownOptions = [
     {
@@ -76,10 +77,42 @@ const Statistics = () => {
         // Handle default case if needed
         break;
     }
-
   };
 
+  const cardData = [
+    {
+      title: "Total Bot User:",
+      value: 123456,
+      Icon: Icon1,
+    },
+    {
+      title: "Active User today:",
+      value: 654321,
+      Icon: Icon2,
+    },
+    {
+      title: "New Users today:",
+      value: 123,
+      Icon: Icon3,
+    },
+    {
+      title: "Total Trade Amount:",
+      value: 123123,
+      Icon: Icon4,
+    },
+  ];
 
+  const cardStyles = {
+    card: {
+      style: {
+        width: "",
+        margin: "",
+        border: "1px solid red",
+        padding: "20px",
+      },
+      className: ``,
+    },
+  };
 
   const config = [
     {
@@ -90,48 +123,12 @@ const Statistics = () => {
     {
       head: "Joining Date",
       key: "join_date",
+      Icon: UpDownIcon,
     },
     {
       head: "Trade Amount",
       key: "trade_amount",
-    }
-  ];
-
-  const actions = [
-    {
-      name: "Action",
-      Icon: function Edit({ data, handleClicks, row }) {
-        return (
-          <>
-            {handleClicks.map(({ click, name, Icon }, id) => {
-              return (
-                <div
-                  key={name + id}
-                  onClick={() => click(row)}
-                  className="p-2 "
-                  style={{ cursor: "pointer", margin: "auto" }}
-                >
-                  <div className="flex items-center gap-1 select-none text-red-500">
-                    <Icon />
-                    {name}
-                  </div>
-                </div>
-              );
-            })}
-          </>
-        );
-      },
-      handleClicks: [
-        {
-          name: "Remove",
-          Icon: RemoveButton,
-          click: (row) => {
-            setIsConfirmModalOpen(true);
-            setSelectedRow(row._id);
-            // setData(data.filter(item => item._id !== row._id))
-          },
-        },
-      ],
+      Icon: UpDownIcon,
     },
   ];
 
@@ -179,7 +176,7 @@ const Statistics = () => {
         style: {
           paddingTop: "16px",
           paddingBottom: "16px",
-          paddingLeft: "",
+          paddingLeft: "20px",
           paddingRight: "",
           borderRadius: "",
           backgroundColor: "#212c3a",
@@ -200,8 +197,8 @@ const Statistics = () => {
       },
       row: {
         style: {
-          paddingLeft: "",
-          borderTop: "",
+          paddingLeft: "20px",
+          borderTop: "16px",
           borderBottom: "1px solid #212c3a",
           fontSize: "14px",
           fontWeight: "400",
@@ -308,40 +305,85 @@ const Statistics = () => {
           <AreaChart />
           <BotTransaction />
         </div>
-        <div className="">
-          <div className="flex justify-around">
-            <h1 className="text-white">User Statistics</h1>
-            <CustomDropdown
-              options={DropDownOptions}
-              Icon={DownIcon}
-              selectedOption={selectedOption}
-              setSelectedOption={setSelectedOption}
-              handleOptionClick={handleOptionClick}
-            />
+        <div className="md:flex gap-3 mt-3 ">
+          <div className="p-5 bg-[#142030] rounded-xl md:w-1/2">
+            <div className="flex justify-between border-b-[0.5px]">
+              <h1 className="text-white">User Statistics</h1>
+              <div style={{ position: "relative", zIndex: 1 }}>
+                <CustomDropdown
+                  options={DropDownOptions}
+                  Icon={DownIcon}
+                  selectedOption={selectedOption}
+                  setSelectedOption={setSelectedOption}
+                  handleOptionClick={handleOptionClick}
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-3">
+              {cardData.map((item, index) => (
+                <CardComp
+                  title={item.title}
+                  value={item.value}
+                  Icon={item.Icon}
+                  styles={styles}
+                  key={index}
+                />
+              ))}
+            </div>
+            <div className="user-stat overflow-x-auto">
+              <Table
+                // actions={actions}
+                config={config}
+                data={data}
+                styles={styles}
+                pagination={{
+                  showPage: true,
+                  totalDocs: rawData.length,
+                  totalPage: Math.ceil(rawData.length / limit),
+                  page,
+                  limit,
+                  onChange: (num) => setPage(num),
+                  onChangeLimit: (num) => setLimit(num),
+                  buttons: {
+                    Prev: CaretLeft,
+                    Next: CaretRight,
+                    Remove: RemoveButton,
+                  },
+                  LimitComp: LimitComponent,
+                  chooseLimit: true,
+                }}
+              />
+            </div>
           </div>
-          <div>
-            <Table
-              actions={actions}
-              config={config}
-              data={data}
-              styles={styles}
-              pagination={{
-                showPage: true,
-                totalDocs: rawData.length,
-                totalPage: Math.ceil(rawData.length / limit),
-                page,
-                limit,
-                onChange: (num) => setPage(num),
-                onChangeLimit: (num) => setLimit(num),
-                buttons: {
-                  Prev: CaretLeft,
-                  Next: CaretRight,
-                  Remove: RemoveButton,
-                },
-                LimitComp: LimitComponent,
-                chooseLimit: true,
-              }}
-            />
+
+          <div className="p-5 bg-[#142030] rounded-xl md:w-1/2">
+            <div className="user-stat ">
+              <h1 className="text-[18px] text-white border-b-[0.5px] mb-3">
+                Referal Statistics
+              </h1>
+              <Table
+                // actions={actions}
+                config={config}
+                data={data}
+                styles={styles}
+                pagination={{
+                  showPage: true,
+                  totalDocs: rawData.length,
+                  totalPage: Math.ceil(rawData.length / limit),
+                  page,
+                  limit,
+                  onChange: (num) => setPage(num),
+                  onChangeLimit: (num) => setLimit(num),
+                  buttons: {
+                    Prev: CaretLeft,
+                    Next: CaretRight,
+                    Remove: RemoveButton,
+                  },
+                  LimitComp: LimitComponent,
+                  chooseLimit: true,
+                }}
+              />
+            </div>
           </div>
         </div>
       </div>
