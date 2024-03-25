@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import rawData from './Message.json';
+// import rawData from './Message.json';
 import RemoveButton from '../../assets/Remove.svg?react';
 import { CaretLeft, CaretRight,} from "@phosphor-icons/react";
 import EditAdminModal from '../EditAdminModal';
@@ -7,9 +7,10 @@ import Table from '../Table';
 import RemoveIcon from '../../assets/RemoveAll.svg?react'
 import MessageModal from './MessageModal';
 import DeleteConfirmModal from './DeleteConfirmModal';
+import { getApiCall } from '../../utils/apiCaller';
 
 //Limit Component
-const LimitComponent= ({onChangeLimit=()=>undefined})=>{
+const LimitComponent= ({ onChangeLimit=()=>undefined })=>{
     return (
       <div>
       <label className="text-white">Showing 1 results  </label>
@@ -22,7 +23,7 @@ const LimitComponent= ({onChangeLimit=()=>undefined})=>{
     )
   }
   
-  const CheckboxComp = ({handleCheckAll}) => {
+  const CheckboxComp = ({ handleCheckAll }) => {
     return (
       <>
         <input
@@ -39,10 +40,12 @@ const Message = () => {
     const [isEditModalOpen,setIsEditModalOpen] = useState(false);
     const [checkedData,setCheckedData] = useState([]);
     const [page, setPage] = useState(1);
+    const [rawData,setRawData] = useState([]);
     const [data, setData] = useState([]);
     const [limit, setLimit] = useState(10); 
     const [isConfirmModalOpen,setIsConfirmModalOpen] = useState(false);
     const [selectedRow,setSelectedRow] = useState([]);
+
   
     const handleisChecked = (e,data) => {
       if(e.target.checked && !checkedData.includes(data._id)){
@@ -80,11 +83,7 @@ const Message = () => {
           return <input type="checkbox" checked={checkedData.includes(data._id)} onChange={(e)=>{handleisChecked(e,data)}} />;
         },
       },
-    //   {
-    //     head: "ID",
-    //     key: "_id",
-    //    // modify: (val) => "#" + val.slice(0, 4),
-    //   },
+
       {
         head: "Messages",
         key: "message",
@@ -92,8 +91,12 @@ const Message = () => {
       },
       {
         head: "Date",
-        key: "time",
+        key: "deletion_date",
       },
+      {
+        head:'Time',
+        key: 'deletion_time',
+      }
   
     ];
   
@@ -129,18 +132,31 @@ const Message = () => {
               setIsConfirmModalOpen(true);
               setSelectedRow(row._id);
               // setData(data.filter(item => item._id !== row._id))
-  
             },
           },
         ],
         
       },
     ];
+
+
+    useEffect(()=>{
+      getApiCall('/messages')
+       .then(res=>{
+          console.log(res.data);
+          setRawData(res.data);
+        })
+        .catch(error => {
+          console.error('Error:', error); 
+         });
+    },[]);
+
+    
   
   
     useEffect(()=>{
       setData(rawData.slice((page-1)*limit, (page-1)*limit+limit));
-    },[page, limit]);
+    },[page, limit,rawData]);
 
     const styles={
       wrapper: {

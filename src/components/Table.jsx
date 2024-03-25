@@ -15,7 +15,7 @@ const LimRaw= ({onChangeLimit=()=>undefined})=>{
 
 const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= null}) => {
 
-    const TableHeadings = config.map(({head, Head, headProp={}},headIdx,Icon) =>Head? <Head key={head+ headIdx} {...headProp}/>:head);
+    const TableHeadings = config.map(({head, Head, headProp={}},headIdx,Icon) =>Head? <Head key={head+ headIdx} {...headProp}/>:head );
     const action = actions.map((each)=>each.name);
     const { Next = null, Prev = null } = pagination?.buttons || {}
     const {LimitComp=LimRaw} =pagination;

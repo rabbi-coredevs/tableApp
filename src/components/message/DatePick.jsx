@@ -49,7 +49,7 @@ const DatePick = ({onChange =()=>{}, onBlur =()=>undefined, DatePickerIcon}) => 
     setIsOpen(false);
 
     //function received as props
-    onChange(newDate.toISOString());
+    onChange(newDate.toLocaleString());
   };
   
   //render year dynamically from 1900 t0 2030

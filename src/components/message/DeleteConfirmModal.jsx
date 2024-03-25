@@ -9,8 +9,6 @@ const DeleteConfirmModal = ({setIsModalOpen = ()=>{}, data = [],setData=()=>{},s
 
     console.log(data)
     console.log(selectedRow)
-  
-  
         setData(data.filter(item => item._id !== selectedRow));
         setIsModalOpen(false)
     }

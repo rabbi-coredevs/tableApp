@@ -309,7 +309,7 @@ const Statistics = () => {
           <div className="p-5 bg-[#142030] rounded-xl md:w-1/2">
             <div className="flex justify-between border-b-[0.5px]">
               <h1 className="text-white">User Statistics</h1>
-              <div style={{ position: "relative", zIndex: 1 }}>
+              <div style={{ position: "relative", top:'-5px' ,zIndex: 1 }}>
                 <CustomDropdown
                   options={DropDownOptions}
                   Icon={DownIcon}

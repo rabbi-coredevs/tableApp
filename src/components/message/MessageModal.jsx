@@ -6,6 +6,7 @@ import ClockIcon from "../../assets/ClockIcon.svg?react";
 import UploadIcon from "../../assets/uploadFile 1.svg?react";
 import CustomTimePicker from "./TimePicker";
 import { useRef, useState } from "react";
+import { postApiCall } from "../../utils/apiCaller";
 
 const MessageModal = ({ setIsModalOpen }) => {
   const {
@@ -28,10 +29,19 @@ const MessageModal = ({ setIsModalOpen }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+    // console.log(typeof data.deletion_time);
     console.log(image)
+    postApiCall("/message", data)
+       .then(response =>{
+        console.log(response)
+        // setIsModalOpen(false)
+       })
+       .catch(error => {
+        console.error('Error:', error); 
+       });
   };
 
+  
   return (
     <div className="">
       <Modal setIsModalOpen={setIsModalOpen} formInfo={{
