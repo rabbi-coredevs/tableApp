@@ -1,3 +1,4 @@
+import axios from "axios";
 import Modal from "../Modal";
 
 const DeleteConfirmModal = ({setIsModalOpen = ()=>{}, data = [],setData=()=>{},selectedRow = [],setSelectedRow =()=>undefined}) => {
@@ -5,16 +6,21 @@ const DeleteConfirmModal = ({setIsModalOpen = ()=>{}, data = [],setData=()=>{},s
         ModalTitle: 'Do you want to remove this message?'
     }
 
-    const handleDelete = ()=>{
+    const handleDelete = () => {
+      axios.delete(`http://localhost:4000/api/message/${selectedRow}`, {
+        withCredentials: true, // Send cookies for authentication
+      })
+      .then(res => {
+        console.log(res); // Log the response
+        setIsModalOpen(false); // Close modal window upon successful deletion
+      })
+      .catch(error => {
+        console.error('Error:', error); // Log any errors
+        // You might want to handle errors or show error messages to the user here
+      });
+    };
+    
 
-    console.log(data)
-    console.log(selectedRow)
-        setData(data.filter(item => item._id !== selectedRow));
-        setIsModalOpen(false)
-    }
-
-
-    // console.log(data)
 
 
   return (

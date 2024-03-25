@@ -130,7 +130,8 @@ const Message = () => {
             Icon:RemoveButton,
             click: (row) => {
               setIsConfirmModalOpen(true);
-              setSelectedRow(row._id);
+              setSelectedRow(row.id);
+              // console.log(row.id);
               // setData(data.filter(item => item._id !== row._id))
             },
           },
