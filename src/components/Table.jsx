@@ -109,7 +109,7 @@ const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= n
             ) : (
               <>
                 {
-                  data.map((row, indx) => <tr key={row._id+ indx} style={{...styles?.table?.row?.style}}>
+                  data.map((row, indx) => <tr key={row.id+ indx} style={{...styles?.table?.row?.style}}>
                           {
                           config.map(({ key, value, onClick, modify = ()=> undefined,Comp }, ind) => {
                             if(Comp) return <Comp key={`key-${ind}`} data = {row}/>
@@ -126,7 +126,7 @@ const Table = ({ config = [], data = [], actions =[], styles = {}, pagination= n
                           })
                           }
                           {
-                            actions.map(({ name, Icon, handleClicks = [] }, actionIdx) => <td key={row._id + name + actionIdx} className="flex" >
+                            actions.map(({ name, Icon, handleClicks = [] }, actionIdx) => <td key={row.id + name + actionIdx} className="flex" >
                             <Icon handleClicks = {handleClicks} row = {row} />
                             </td>
                           )}

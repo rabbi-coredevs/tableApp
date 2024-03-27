@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 // import image1 from '../assets/BgTop.png';
@@ -7,10 +7,14 @@ import Input from "./Input";
 import  { AuthContext } from "./AuthProvider";
 import { postApiCall } from "../utils/apiCaller";
 import { useNavigate } from "react-router-dom";
+import EditAdminModal from "./EditAdminModal";
+import ForgotPasswordModal from "./ForgotPasswordModal";
 
 const LoginPage = () => {
     const {user,setUser} = useContext(AuthContext);
     const navigate= useNavigate();
+    const [isForgotPasswordModalOpen,setIsForgotPasswordModalOpen] =useState(false);
+  
 
   const {
     register,
@@ -25,7 +29,6 @@ const LoginPage = () => {
 
   const onSubmit = (data) => {
     // console.log(data); 
- 
     // Making a POST request to '/admin' endpoint with the data
     postApiCall('/user/login', data)
        .then(response => {
@@ -44,9 +47,13 @@ const LoginPage = () => {
        });
  };
 
+ const handleForgetPassword =()=>{
+  setIsForgotPasswordModalOpen(true);
+  
+ }
+
 //  useEffect(()=>{
 //   console.log(user);
-
 //  },[user])
  
 
@@ -69,6 +76,14 @@ const LoginPage = () => {
               </p>
             </div>
             <div className="w-full">
+              {
+                isForgotPasswordModalOpen && (
+                  <ForgotPasswordModal 
+                  setIsModalOpen={setIsForgotPasswordModalOpen}
+                  />
+                )
+              }
+
               <form className="" action="" onSubmit={handleSubmit(onSubmit)}>
                 <Input
                   label="Email"
@@ -106,6 +121,9 @@ const LoginPage = () => {
                   </span>
                 </button>
               </form>
+              <div className="flex justify-end">
+              <a href="#" className="text-[#717c8b]" onClick={handleForgetPassword}>Forget Password</a>
+              </div>
             </div>
           </div>
         </div>

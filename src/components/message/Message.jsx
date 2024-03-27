@@ -144,7 +144,7 @@ const Message = () => {
     useEffect(()=>{
       getApiCall('/messages')
        .then(res=>{
-          console.log(res.data);
+          // console.log(res.data);
           setRawData(res.data);
         })
         .catch(error => {

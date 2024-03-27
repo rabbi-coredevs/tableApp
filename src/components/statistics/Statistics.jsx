@@ -3,9 +3,9 @@ import AreaChart from "./AreaChart";
 import BotTransaction from "./BotTransaction";
 import ColumnChart from "./ColumnChart";
 import DownIcon from "../../assets/Vector.svg?react";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Table from "../Table";
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight, CloudFog } from "@phosphor-icons/react";
 import RemoveButton from "../../assets/Remove.svg?react";
 import rawData from "./UserStat.json";
 import CardComp from "./CardComp";
@@ -14,6 +14,7 @@ import Icon2 from "../../assets/Icon.svg?react";
 import Icon3 from "../../assets/Frame (2).svg?react";
 import Icon4 from "../../assets/Frame (1).svg?react";
 import UpDownIcon from "../../assets/AscDscIcon.svg?react";
+import { AuthContext } from "../AuthProvider";
 
 //Limit Component
 const LimitComponent = ({ onChangeLimit = () => undefined }) => {
@@ -35,6 +36,8 @@ const Statistics = () => {
   const [page, setPage] = useState(1);
   const [data, setData] = useState([]);
   const [limit, setLimit] = useState(10);
+
+  
 
   const DropDownOptions = [
     {

@@ -2,7 +2,8 @@ import Close from '../assets/Close.svg?react'
 
 
 const Modal = ({ setIsModalOpen = ()=>{}, children, formInfo = {}}) => {
-   const {ModalTitle} = formInfo;
+  const {ModalTitle} = formInfo;
+  
   return (
     <div
       className={`fixed inset-0 overflow-y-auto transition-opacity duration-500`}
