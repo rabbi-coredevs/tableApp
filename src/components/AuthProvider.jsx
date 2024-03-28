@@ -19,7 +19,7 @@ const AuthProvider = ({ children }) => {
 
     if(loading) return <h1>Loading....</h1>
     return (
-        <AuthContext.Provider value={{user, setUser}}>
+        <AuthContext.Provider value={{user, setUser, }}>
             {children}
         </AuthContext.Provider>
     );

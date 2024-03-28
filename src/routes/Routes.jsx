@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter, useParams } from "react-router-dom";
 import Layout from "../layout/Layout";
 import Admin from "../components/Admin";
 import Message from "../components/message/Message";
@@ -7,11 +7,17 @@ import Statistics from "../components/statistics/Statistics";
 import LoginPage from "../components/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "../components/AuthProvider";
+import ResetPassword from "../components/ResetPassword";
+
+
 
 
 // Create a wrapper component for protected routes
 const ProtectedRoute = ({ children }) => {
   const {user} = useContext(AuthContext);
+  const {id,token} = useParams();
+
+
   // If authenticated, render the provided element
   // Otherwise, redirect to the login page
   return user ? children : <Navigate to='/login'/>;
@@ -26,7 +32,6 @@ export const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        index: true,
         element:<ProtectedRoute><Admin /></ProtectedRoute>,
       },
       {
@@ -45,6 +50,12 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
+    index:true,
     element: <LoginPage />,
   },
+  {
+    path:'/forgot-password/:id/:token',
+    element: <ResetPassword/>,
+  },
+ 
 ]);
