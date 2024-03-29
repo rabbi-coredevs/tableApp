@@ -2,14 +2,17 @@
 import Modal from "./Modal";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
-import { useParams, useSearchParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
+import { postApiCall } from "../utils/apiCaller";
+import {  toast } from "react-toastify";
 
 const ResetPassword = () => {
-  const {id,token} = useParams();
-  console.log(id, token);
+  const navigateToLogin = useNavigate();
+  const {token} = useParams();
+  console.log(token);
+  // const [searchParams] = useSearchParams();
+  // const token = searchParams.get('token');
   
-
     const {
         register,
         handleSubmit,
@@ -23,7 +26,26 @@ const ResetPassword = () => {
 
     const onSubmit =(data)=>{
         console.log(data);
-
+        postApiCall('/user/change/password',{
+           token,
+           password: data.password,
+           
+        })
+        .then(res=>{
+           if(res.status === 200){
+          toast.success(`${res.data.message}`, {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            theme: "dark",
+            })
+          navigateToLogin('/login');
+        }
+        })
+        .catch(err=>{
+          console.err(err)
+       })
+    
     }
 
 

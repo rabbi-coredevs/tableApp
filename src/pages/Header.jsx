@@ -44,8 +44,8 @@ const Header = ({sidebarOpen, setSidebarOpen = false, tableHeading = ''}) => {
     <div className="flex gap-3">
       <img className='w-[42px] rounded-md ' src={DummyPeople} alt="" />
       <div className="">
-        <p className='text-base font-semibold'>{user.userName}</p>
-        <p className='text-xs font-normal'>{user.role}</p>
+        <p className='text-base font-semibold'>{user?.userName}</p>
+        <p className='text-xs font-normal'>{user?.role}</p>
       </div>
     </div>
     </div>

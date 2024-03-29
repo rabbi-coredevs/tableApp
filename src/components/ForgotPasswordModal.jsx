@@ -3,15 +3,11 @@ import Modal from "./Modal";
 import { useForm } from "react-hook-form";
 import {  toast } from "react-toastify";
 import { postApiCall } from "../utils/apiCaller";
-import { useNavigate, useParams } from "react-router-dom";
-
-
-
+// import { useNavigate, useParams } from "react-router-dom";
 
 
 const ForgotPasswordModal = ({ setIsModalOpen =()=>undefined }) => {
-    const navigateto = useNavigate();
-
+    // const navigateto = useNavigate();
 
     const {
         register,
@@ -19,38 +15,23 @@ const ForgotPasswordModal = ({ setIsModalOpen =()=>undefined }) => {
         formState: { errors },
       } = useForm({
         defaultValues: {
-    
         },
       });
 
     const onSubmit =(data)=>{
-
       //forgot password api call
         postApiCall('/user/forgot/password',{
             email: data.email,
-            // otp: data.otp,
         })
         .then(res=> {
            if(res.status === 200){
-            // localStorage.setItem('forgotPasswordToken',res.data);
-            // setOtp(res.data);
-         toast.success(`OTP sent to ${data.email}`, {
+         toast.success(`Reset Link sent to ${data.email}`, {
             position: "top-center",
             autoClose: 3000,
             hideProgressBar: false,
             theme: "dark",
             })
-            postApiCall('/user/verify/otp',{
-              token:res.data,
-              otp:'905638'
-            })
-            .then(respons=>{
-              console.log(respons)
-            })
-            .catch(err=>{
-               console.err(err)
-            })
-            // setIsModalOpen(false);
+            setIsModalOpen(false);
             // navigateto('/forgot-password');
            }
 
@@ -58,11 +39,7 @@ const ForgotPasswordModal = ({ setIsModalOpen =()=>undefined }) => {
         .catch(error => {
             console.error('Error:', error);
          }); 
-
-          
     }
-
-
 
 
   return (

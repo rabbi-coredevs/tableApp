@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 // import image1 from '../assets/BgTop.png';
@@ -7,7 +7,6 @@ import Input from "./Input";
 import  { AuthContext } from "./AuthProvider";
 import { postApiCall } from "../utils/apiCaller";
 import { useNavigate } from "react-router-dom";
-import EditAdminModal from "./EditAdminModal";
 import ForgotPasswordModal from "./ForgotPasswordModal";
 
 const LoginPage = () => {
