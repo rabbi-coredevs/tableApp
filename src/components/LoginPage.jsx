@@ -28,7 +28,6 @@ const LoginPage = () => {
   });
 
   const onSubmit = (data) => {
-    // console.log(data); 
     // Making a POST request to '/admin' endpoint with the data
     postApiCall('/user/login', data)
        .then(response => {
@@ -37,13 +36,9 @@ const LoginPage = () => {
           setUser(response.data);
           navigate('/');
           }
-          else {
-            console.log(response.data);
-          }
        })
        .catch(error => {
           console.error('Error:', error);
-
        });
  };
 
@@ -51,11 +46,6 @@ const LoginPage = () => {
   setIsForgotPasswordModalOpen(true);
   
  }
-
-//  useEffect(()=>{
-//   console.log(user);
-//  },[user])
- 
 
   return (
     <div className="relative">

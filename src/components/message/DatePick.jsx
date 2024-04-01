@@ -2,7 +2,7 @@ import { CaretLeft, CaretRight} from '@phosphor-icons/react';
 import { useState, useEffect, useRef } from 'react';
 
 
-const DatePick = ({onChange =()=>{}, onBlur =()=>undefined, DatePickerIcon}) => {
+const DatePick = ({onChange =()=>undefined, onBlur =()=>undefined, DatePickerIcon}) => {
   const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
   const [currentDate, setCurrentdate]=useState(new Date());
   const [daysInMonth, setDaysinmonth]=useState(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).getDate());
@@ -49,7 +49,7 @@ const DatePick = ({onChange =()=>{}, onBlur =()=>undefined, DatePickerIcon}) => 
     setIsOpen(false);
 
     //function received as props
-    onChange(newDate.toLocaleString());
+    onChange(newDate.toLocaleDateString());
   };
   
   //render year dynamically from 1900 t0 2030

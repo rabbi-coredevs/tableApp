@@ -8,8 +8,8 @@ import LoginPage from "../components/LoginPage";
 import { useContext } from "react";
 import { AuthContext } from "../components/AuthProvider";
 import ResetPassword from "../components/ResetPassword";
-
-
+import NotFound from "../components/ NotFound/NotFound";
+import AddDivDynamically from "../components/AddDivDynamically";
 
 
 // Create a wrapper component for protected routes
@@ -19,7 +19,6 @@ const ProtectedRoute = ({ children }) => {
   // Otherwise, redirect to the login page
   return user ? children : <Navigate to='/login'/>;
 };
-
 
 // Define your router configuration
 export const router = createBrowserRouter([
@@ -53,11 +52,12 @@ export const router = createBrowserRouter([
   {
     path:'/forgot-password/:token',
     element: <ResetPassword/>,
+  },{
+    path:'*',
+    element: <NotFound/>,
   },
-
-  // {
-  //   path:'/forgot/:token',
-  //   element: <ForgotPass/>,
-  // },
- 
+  {
+    path:'/div',
+    element:<AddDivDynamically/>
+  }
 ]);

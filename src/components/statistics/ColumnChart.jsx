@@ -100,8 +100,6 @@ export default function ColumnChart() {
     {
       name: "Trade Buy",
       data: [44, 55, 57, 56, 61, 58, 63, 60, 66, 70, 55],
-    
-      
     },
     {
       name: "Trade Sell",
