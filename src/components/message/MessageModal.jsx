@@ -2,11 +2,10 @@ import { Controller, useForm } from "react-hook-form";
 import Modal from "../Modal";
 import DatePick from "./DatePick";
 import DatePickerIcon from "../../assets/Icon (7).svg?react";
-import ClockIcon from "../../assets/ClockIcon.svg?react";
 import UploadIcon from "../../assets/uploadFile 1.svg?react";
-import CustomTimePicker from "./TimePicker";
 import { useRef, useState } from "react";
 import { postApiCall } from "../../utils/apiCaller";
+import CustomTimePicker from "./CustomTimePicker";
 
 const MessageModal = ({ setIsModalOpen }) => {
   const {
@@ -112,7 +111,7 @@ const MessageModal = ({ setIsModalOpen }) => {
                     onChange={onChange}
                     onBlur={onBlur}
                     selected={value}
-                    ClockIcon={ClockIcon}
+                    
                   />
                   {errors.deletion_time && (
                     <p className="text-red-600">

@@ -10,6 +10,8 @@ import { AuthContext } from "../components/AuthProvider";
 import ResetPassword from "../components/ResetPassword";
 import NotFound from "../components/ NotFound/NotFound";
 import AddDivDynamically from "../components/AddDivDynamically";
+import Clients from "../components/ForgotPass/Clients";
+import CustomTimePicker from "../components/message/CustomTimePicker";
 
 
 // Create a wrapper component for protected routes
@@ -59,5 +61,9 @@ export const router = createBrowserRouter([
   {
     path:'/div',
     element:<AddDivDynamically/>
-  }
+  },
+ {
+   path:'/time',
+   element:<CustomTimePicker/>
+ }
 ]);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const CustomTimePicker = ({ onChange = () => {}, ClockIcon }) => {
+const CustomTimePick = ({ onChange = () => {}, ClockIcon }) => {
     const [hours, setHours] = useState('');
     const [minutes, setMinutes] = useState('');
     const [ampm, setAmPm] = useState('');
@@ -111,4 +111,4 @@ const CustomTimePicker = ({ onChange = () => {}, ClockIcon }) => {
     );
 };
 
-export default CustomTimePicker;
+export default CustomTimePick;

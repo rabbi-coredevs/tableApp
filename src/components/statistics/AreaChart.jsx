@@ -1,10 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
 import DownIcon from "../../assets/Vector.svg?react";
 import CustomDropdown from "../CustomDropDown";
 
 const AreaChart = () => {
-  const [selectedOption, setSelectedOption] = useState("Month");
+  const [selectedOption, setSelectedOption] = useState("Day"); // Initialize with "Day"
+  console.log(selectedOption);
+
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState({
     chart: {
@@ -28,7 +30,7 @@ const AreaChart = () => {
       width: 2,
     },
     title: {
-      text: "Total BOT Transactions",
+      text: "Total Comissions",
       align: "left",
       margin: 10,
       offsetX: 0,
@@ -51,6 +53,7 @@ const AreaChart = () => {
         },
       },
     },
+
     tooltip: {
       x: {
         format: "MMM",
@@ -70,6 +73,10 @@ const AreaChart = () => {
     },
   ]);
 
+  useEffect(() => {
+    handleOptionClick("Day", "day"); // Simulate click on "Day" to populate chart initially
+  }, []); // Empty dependency array ensures this runs only once after initial render
+
   const handleOptionClick = (value, key) => {
     setSelectedOption(value);
 
@@ -86,10 +93,12 @@ const AreaChart = () => {
           47, 71, 95, 18, 63, 88, 31, 45, 79, 27, 53, 72, 96,
         ];
         break;
+
       case "week":
         categories = ["sat", "sun", "mon", "tue", "wed", "thu", "fri"];
         data = [87, 42, 59, 76, 23, 68, 91];
         break;
+
       case "month":
         categories = [
           "January",
@@ -106,8 +115,8 @@ const AreaChart = () => {
           "December",
         ];
         data = [12, 23, 45, 65, 76, 87, 32, 45, 65, 76, 80];
-
         break;
+
       case "year":
         categories = [2023, 2024, 2025, 2026, 2027, 2028, 2029, 2030];
         data = [440, 550, 570, 560, 610, 580, 630, 600, 660];
