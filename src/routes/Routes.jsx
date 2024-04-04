@@ -12,6 +12,7 @@ import NotFound from "../components/ NotFound/NotFound";
 import AddDivDynamically from "../components/AddDivDynamically";
 import Clients from "../components/ForgotPass/Clients";
 import CustomTimePicker from "../components/message/CustomTimePicker";
+import Zip from "../components/Zip";
 
 
 // Create a wrapper component for protected routes
@@ -65,5 +66,9 @@ export const router = createBrowserRouter([
  {
    path:'/time',
    element:<CustomTimePicker/>
+ },
+ {
+  path:'/zip',
+  element:<Zip/>
  }
 ]);
