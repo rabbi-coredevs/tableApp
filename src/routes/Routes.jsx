@@ -13,6 +13,8 @@ import AddDivDynamically from "../components/AddDivDynamically";
 import Clients from "../components/ForgotPass/Clients";
 import CustomTimePicker from "../components/message/CustomTimePicker";
 import Zip from "../components/Zip";
+import SearchComp from "../components/ NotFound/SearchComp";
+import Alerts from "../components/ForgotPass/Alerts";
 
 
 // Create a wrapper component for protected routes
@@ -60,15 +62,23 @@ export const router = createBrowserRouter([
     element: <NotFound/>,
   },
   {
-    path:'/div',
-    element:<AddDivDynamically/>
-  },
- {
-   path:'/time',
-   element:<CustomTimePicker/>
- },
- {
-  path:'/zip',
-  element:<Zip/>
- }
+    path:'/search',
+    element:<SearchComp/>
+  }
+  ,{
+    path:'/alerts',
+    element:<Alerts/>
+  }
+//   {
+//     path:'/div',
+//     element:<AddDivDynamically/>
+//   },
+//  {
+//    path:'/time',
+//    element:<CustomTimePicker/>
+//  },
+//  {
+//   path:'/zip',
+//   element:<Zip/>
+//  }
 ]);

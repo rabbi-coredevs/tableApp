@@ -1,6 +1,6 @@
 import { Controller, useForm } from "react-hook-form";
 import Modal from "../Modal";
-import DatePick from "./DatePick";
+import DatePick from "./DatePick1";
 import DatePickerIcon from "../../assets/Icon (7).svg?react";
 import UploadIcon from "../../assets/uploadFile 1.svg?react";
 import { useRef, useState } from "react";

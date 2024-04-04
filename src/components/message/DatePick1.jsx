@@ -1,105 +1,64 @@
-import { CaretLeft, CaretRight } from "@phosphor-icons/react";
-import React, { useState, useEffect, useRef } from "react";
+import { CaretLeft, CaretRight} from '@phosphor-icons/react';
+import { useState, useEffect, useRef } from 'react';
 
 
-const DatePick = ({
-  onChange = () => undefined,
-  DatePickerIcon = CaretRight,
-}) => {
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  const [currentDate, setCurrentdate] = useState(new Date());
-  const [daysInMonth, setDaysinmonth] = useState(
-    new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0).getDate()
-  );
-  const [startDay, setStartday] = useState(
-    new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
-  );
-  const [selectedDay, setSelectedDay] = useState(null);
+const DatePick1 = ({onChange =()=>undefined, onBlur =()=>undefined, DatePickerIcon}) => {
+  const months = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+  const [currentDate, setCurrentdate]=useState(new Date());
+  const [daysInMonth, setDaysinmonth]=useState(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).getDate());
+  const [startDay, setStartday]=useState(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay());
+  const [selectedDay, setSelectedDay]=useState(null);
   const [isOpen, setIsOpen] = useState(false);
   const datepickerRef = useRef(null);
 
 
-  // Close dropdown when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        datepickerRef.current &&
-        !datepickerRef.current.contains(event.target)
-      ) {
-        if (!selectedDay && isOpen) {
-          //   setSelectedDay(currentDate);
+    // Close dropdown when clicking outside
+    useEffect(() => {
+      const handleClickOutside = (event) => {
+        if (datepickerRef.current && !datepickerRef.current.contains(event.target)) {
+          if (!selectedDay && isOpen) {
+            setSelectedDay(currentDate);
+          }
+          setIsOpen(false);
         }
-        setIsOpen(false);
-      }
-    };
+      };
+  
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }, [currentDate,selectedDay,isOpen]);
 
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [currentDate, selectedDay, isOpen]);
+//Calls everytime currentDate updated
+  useEffect(()=>{
+    setDaysinmonth(new Date(currentDate.getFullYear(), currentDate.getMonth()+1, 0).getDate())
+    setStartday(new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay())
+  },[currentDate]);
 
-
-  //Calls everytime currentDate updated
-  useEffect(() => {
-    setDaysinmonth(
-      new Date(
-        currentDate.getFullYear(),
-        currentDate.getMonth() + 1,
-        0
-      ).getDate()
-    );
-    setStartday(
-      new Date(currentDate.getFullYear(), currentDate.getMonth(), 1).getDay()
-    );
-  }, [currentDate]);
-
-
-  //fucntion to mark today
+//fucntion to mark today
   const isToday = (day) => {
     const today = new Date();
-    return (
-      day === today.getDate() &&
-      currentDate.getMonth() === today.getMonth() &&
-      currentDate.getFullYear() === today.getFullYear()
-    );
+    return day === today.getDate() && currentDate.getMonth() === today.getMonth() && currentDate.getFullYear() === today.getFullYear();
   };
 
-
   const handleDayClick = (day) => {
-    const newDate = new Date(currentDate);
+    const newDate= new Date(currentDate);
     newDate.setDate(day);
     setSelectedDay(newDate);
     setIsOpen(false);
 
-
     //function received as props
     onChange(newDate.toLocaleDateString());
   };
-
-
+  
   //render year dynamically from 1900 t0 2030
   const renderYearOptions = () => {
     const yearOptions = [
-      <option key={0} value={""} disabled>
+      <option key={0} value={''} disabled>
         Year
       </option>,
     ];
-
 
     for (let i = 2030; i >= 1900; i--) {
       yearOptions.push(
@@ -109,28 +68,26 @@ const DatePick = ({
       );
     }
 
-
     return yearOptions;
   };
 
-
-  //Function called when month is changed
-  const handleMonthChange = (manipMonth) => {
-    const newdate = currentDate;
-    newdate.setMonth(currentDate.getMonth() + manipMonth);
+//Function called when month is changed
+  const handleMonthChange=(manipMonth) => {
+    const newdate= currentDate;
+    newdate.setMonth(currentDate.getMonth()+manipMonth);
     setCurrentdate(new Date(newdate));
-  };
-
+  }
 
   return (
     <div className="select-none w-full " ref={datepickerRef}>
-      <div className="flex justify-between items-center px-4 h-10 rounded focus:border focus:border-blue-400 bg-[#F9F9F9]">
-        <div className="text-[#5F5F5F80] text-sm ">
+
+      <div className="flex justify-between items-center px-4 h-10 rounded focus:border focus:border-blue-400 bg-[#121a27]">
+        <div className='text-white '>
           {selectedDay
             ? new Date(selectedDay).toLocaleDateString()
-            : "Expiry Date"}
+            : "Select a Date"}
         </div>
-        <div className="">
+        <div className=''>
           <DatePickerIcon
             className="cursor-pointer"
             onClick={(e) => {
@@ -140,10 +97,10 @@ const DatePick = ({
           />
         </div>
       </div>
-      <div className="relative w-[400px]">
+      <div className="relative w-full">
         <div className="flex justify-center absolute top-0 left-0 right-0 bg-white z-10">
           {isOpen && (
-            <div className="container p-4 border-2 border-[#5F5F5F80] rounded-lg">
+            <div className="container p-4 border-2 border-blue-600 rounded-lg">
               <div className="flex flex-row justify-center gap-1">
                 <CaretLeft
                   className="bg-gray-200 p-1 rounded-full hover:text-white hover:bg-blue-400"
@@ -187,7 +144,6 @@ const DatePick = ({
                 />
               </div>
 
-
               <div className="grid grid-cols-7 gap-1 p-4">
                 {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
                   (weekday) => (
@@ -202,14 +158,16 @@ const DatePick = ({
                 {new Array(daysInMonth).fill("").map((_, index) => (
                   <span
                     key={index}
-                    className={`text-center p-2 rounded cursor-pointer bg-gray-200 hover:bg-[#0094ff] hover:text-white ${isToday(index + 1) && " text-white"
-                      }
-             ${selectedDay?.getFullYear() === currentDate?.getFullYear() &&
-                        selectedDay?.getMonth() === currentDate?.getMonth() &&
-                        selectedDay?.getDate() === index + 1
-                        ? "bg-orange-500 text-white"
-                        : ""
-                      }`}
+                    className={`text-center p-2 rounded cursor-pointer bg-gray-200 hover:bg-[#0094ff] hover:text-white ${
+                      isToday(index + 1) && " text-white"
+                    }
+              ${
+                selectedDay?.getFullYear() === currentDate?.getFullYear() &&
+                selectedDay?.getMonth() === currentDate?.getMonth() &&
+                selectedDay?.getDate() === index + 1
+                  ? "bg-orange-500 text-white"
+                  : ""
+              }`}
                     onClick={() => handleDayClick(index + 1)}
                   >
                     {index + 1}
@@ -224,5 +182,33 @@ const DatePick = ({
   );
 };
 
+export default DatePick1;
 
-export default DatePick;
+
+
+
+// getDate():
+// This method returns the day of the month (from 1 to 31) for the specified date.
+// The value returned by getDate() is an integer representing the day of the month.
+// Example:
+// const currentDate = new Date(); // Assuming today is March 4, 2024
+// const dayOfMonth = currentDate.getDate(); // Returns 4
+
+
+// getMonth():
+// This method returns the month (from 0 to 11) for the specified date.
+// Months are zero-indexed, where 0 represents January, 1 represents February, and so on.
+// Example:
+// const currentDate = new Date(); // Assuming today is March 4, 2024
+// const month = currentDate.getMonth(); // Returns 2 (March is represented by index 2)
+
+// getFullYear():
+// This method returns the year (as a four-digit number) of the specified date.
+// Example:
+// const currentDate = new Date(); // Assuming today is March 4, 2024
+// const year = currentDate.getFullYear(); // Returns 2024
+
+
+
+
+

@@ -1,7 +1,7 @@
 
 import dummyImg from '../../assets/dummyImg.jpg';
 
-const ClientsCard = ({ client, date, time, paragraphText, key }) => {
+const ClientsCard = ({ client, date, time, paragraphText }) => {
 
 
   // Define background color based on index
