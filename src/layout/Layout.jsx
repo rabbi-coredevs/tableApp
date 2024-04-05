@@ -13,9 +13,6 @@ const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [tableHeading, setTableHeading] = useState("");
 
-
-
-
   const lists = [
     { icon: <Icon1 />, text: "Admin", route: "" },
     { icon: <Icon2 />, text: "Statistics", route: "statistics" },

@@ -15,6 +15,7 @@ import CustomTimePicker from "../components/message/CustomTimePicker";
 import Zip from "../components/Zip";
 import SearchComp from "../components/ NotFound/SearchComp";
 import Alerts from "../components/ForgotPass/Alerts";
+import AlertModal from "../components/ForgotPass/AlertModal";
 
 
 // Create a wrapper component for protected routes
@@ -67,7 +68,7 @@ export const router = createBrowserRouter([
   }
   ,{
     path:'/alerts',
-    element:<Alerts/>
+    element:<AlertModal/>
   }
 //   {
 //     path:'/div',

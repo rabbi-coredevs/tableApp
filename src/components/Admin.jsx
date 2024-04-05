@@ -32,7 +32,7 @@ const CheckboxComp = ({handelCheckAll}) => {
     <>
       <input
         type="checkbox"
-        className=""
+        className="w-4 h-4"
         onChange={(e) => handelCheckAll(e)}
       />
     </>
@@ -99,7 +99,7 @@ const Admin = () => {
         handelCheckAll,
       },
       Comp: function comp({ data }) {
-        return <input type="checkbox" checked={checkedData.includes(data.id)} onChange={(e)=>{handleisChecked(e,data)}} />;
+        return <input type="checkbox" checked={checkedData.includes(data.id)} onChange={(e)=>{handleisChecked(e,data)}} className="w-4 h-4" />;
       },
     },
     {
@@ -203,6 +203,10 @@ const Admin = () => {
       headerGroup: {
         style: { border: "2px solid red" },
         className: ``,
+      },
+      checkBox:{
+        style: { border: "",backgroundColor:'', padding:'',borderRadius:'' },
+        className: `w-6 h-6 accent-black`,
       },
       headerRow: {
         style: {
