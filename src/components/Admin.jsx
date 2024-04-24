@@ -9,7 +9,7 @@ import AddAdminModal from "./AddAdminModal";
 import AdminTable from "./AdminTable";
 import EditAdminModal from "./EditAdminModal";
 import ConfirmModal from "./ConfirmModal";
-import { getApiCall } from "../utils/apiCaller";
+import { getApiCall, postApiCall } from "../utils/apiCaller";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -87,6 +87,21 @@ const Admin = () => {
     // setData(data.filter(item => !checkedData.includes(item.id)))
     setIsConfirmModalOpen(true);
 
+  }
+
+  const handlePostData = (data) =>{
+       //Making a POST request to '/user' endpoint with the admin data
+       postApiCall('/user', data)
+       .then(response => {
+        // console.log(response.data);
+          if(response.data && response) {
+            setRawData([...rawData, response.data]);
+            setIsAddModalOpen(false);
+          }   
+       })
+       .catch(error => {
+          console.error('Error:', error); 
+       });
   }
 
 
@@ -320,6 +335,7 @@ const Admin = () => {
             isAddModalOpen &&
             <AddAdminModal
             setIsModalOpen={setIsAddModalOpen} 
+            handlePostData = {handlePostData}
             />
           }
           {

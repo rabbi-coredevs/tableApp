@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import Modal from "./Modal";
 import { postApiCall } from "../utils/apiCaller";
 
-const AddAdminModal = ({setIsModalOpen = false}) => {
+const AddAdminModal = ({ setIsModalOpen = false , handlePostData = () =>{console.log('error in handlePostData')}}) => {
   
   const formInfo = {
     ModalTitle:'Add New Admin',
@@ -23,22 +23,24 @@ const AddAdminModal = ({setIsModalOpen = false}) => {
     });
 
     const onSubmit = (data) => {
-      console.log(data); 
+      // console.log(data); 
       delete data.confirm_password;
       data.role = 'admin';
 
    
-      //Making a POST request to '/admin' endpoint with the data
-      postApiCall('/user', data)
-         .then(response => {
-            if(response.data && response) {
-              setIsModalOpen(false);
-            }
-            
-         })
-         .catch(error => {
-            console.error('Error:', error); 
-         });
+      // //Making a POST request to '/user' endpoint with the admin data
+      // postApiCall('/user', data)
+      //    .then(response => {
+      //     // console.log(response.data);
+      //       if(response.data && response) {
+      //         setIsModalOpen(false);
+      //       }   
+      //    })
+      //    .catch(error => {
+      //       console.error('Error:', error); 
+      //    });
+
+      handlePostData(data);
    };
    
 
