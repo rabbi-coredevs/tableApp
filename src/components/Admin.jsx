@@ -12,6 +12,8 @@ import ConfirmModal from "./ConfirmModal";
 import { getApiCall, postApiCall } from "../utils/apiCaller";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchAdmins } from "../features/admins/adminSlice";
 
 //Limit Component
 const LimitComponent= ({onChangeLimit=()=>undefined})=>{
@@ -54,17 +56,29 @@ const Admin = () => {
   const [isLoading,setIsLoading] = useState(true);
 
   // console.log(checkedData);
-  
+   const {admins, error}=useSelector(state => ({
+    admins: state.admins,
+   }));
+
+   console.log(admins.admins)
+  const dispatch  = useDispatch();
 
   useEffect(() => {
-    getApiCall('/user',{
-      role:"admin"
-    }).then(res =>{
-      console.log(res.data);
-      setRawData(res.data);
-      setIsLoading(false);
-    })
+    dispatch(fetchAdmins())
+    setRawData(admins.admins)
+    setIsLoading(false);
   },[]);
+
+  // console.log(rawData)
+  // useEffect(() => {
+  //   getApiCall('/user',{
+  //     role:"admin"
+  //   }).then(res =>{
+  //     console.log(res.data);
+  //     setRawData(res.data);
+  //     setIsLoading(false);
+  //   })
+  // },[]);
 
   const handleisChecked = (e,data) => {
     if(e.target.checked && !checkedData.includes(data.id)){
@@ -103,6 +117,11 @@ const Admin = () => {
           console.error('Error:', error); 
        });
   }
+
+ 
+
+
+
 
 
 
