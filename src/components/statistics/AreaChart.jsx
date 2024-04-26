@@ -5,7 +5,7 @@ import CustomDropdown from "../CustomDropDown";
 
 const AreaChart = () => {
   const [selectedOption, setSelectedOption] = useState("Day"); // Initialize with "Day"
-  console.log(selectedOption);
+  // console.log(selectedOption);
 
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState({

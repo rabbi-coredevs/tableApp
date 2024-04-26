@@ -16,6 +16,7 @@ import Zip from "../components/Zip";
 import SearchComp from "../components/ NotFound/SearchComp";
 import Alerts from "../components/ForgotPass/Alerts";
 import AlertModal from "../components/ForgotPass/AlertModal";
+import Review from "../components/ForgotPass/samian/Review";
 
 
 // Create a wrapper component for protected routes
@@ -62,18 +63,18 @@ export const router = createBrowserRouter([
     path:'*',
     element: <NotFound/>,
   },
-  {
-    path:'/search',
-    element:<SearchComp/>
-  }
-  ,{
-    path:'/alerts',
-    element:<AlertModal/>
-  }
-//   {
-//     path:'/div',
-//     element:<AddDivDynamically/>
-//   },
+  // {
+  //   path:'/search',
+  //   element:<SearchComp/>
+  // }
+  // ,{
+  //   path:'/alerts',
+  //   element:<AlertModal/>
+  // },
+  // {
+  //   path:'/div',
+  //   element:<Review/>
+  // },
 //  {
 //    path:'/time',
 //    element:<CustomTimePicker/>

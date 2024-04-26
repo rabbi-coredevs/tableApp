@@ -1,14 +1,23 @@
 import { List } from '@phosphor-icons/react/dist/ssr';
-import Rabbi from '../assets/Rabbi.jpeg';
+import { useSelector } from 'react-redux';
 import DummyPeople from '../assets/dummyImg.jpg';
-import {  useContext, useEffect, useState} from 'react';
-import { AuthContext } from '../components/AuthProvider';
+import { useEffect } from 'react';
 
 const Header = ({sidebarOpen, setSidebarOpen = false, tableHeading = ''}) => {
-  const {user} = useContext(AuthContext);
-  // const [superAdminData, setSuperAdminData] = useState(null);
 
-  // console.log(user)
+  // const {isLoading, users, error} = useSelector(state => state.users);
+
+  // // const [superAdmin = null] = superAdmins;
+
+  // console.log(users)
+
+  // const dispatch = useDispatch();
+  // useEffect(()=>{
+  //   dispatch(fetchUsers());
+  // },[dispatch]);
+
+  const {data, isLoading, error} = useSelector(state => state.userInfo);
+
 
 
   useEffect(() => {
@@ -30,6 +39,7 @@ const Header = ({sidebarOpen, setSidebarOpen = false, tableHeading = ''}) => {
     };
   }, [setSidebarOpen]);
 
+  // if(isLoading) return <h1>Loading...</h1>;
 
   return (
     <div className="flex justify-between px-5 py-[14px]  text-white items-center">  
@@ -44,8 +54,8 @@ const Header = ({sidebarOpen, setSidebarOpen = false, tableHeading = ''}) => {
     <div className="flex gap-3">
       <img className='w-[42px] rounded-md ' src={DummyPeople} alt="" />
       <div className="">
-        <p className='text-base font-semibold'>{user?.userName}</p>
-        <p className='text-xs font-normal'>{user?.role}</p>
+        <p className='text-base font-semibold'>{data?.userName|| ''}</p>
+        <p className='text-xs font-normal'>{data?.role|| ''}</p>
       </div>
     </div>
     </div>

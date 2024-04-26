@@ -1,21 +1,22 @@
-import { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "./Input";
 // import image1 from '../assets/BgTop.png';
 // import image2 from '../assets/TopLeft.png';
 // import image3 from '../assets/Rignt.png'
-import  { AuthContext } from "./AuthProvider";
-import { postApiCall } from "../utils/apiCaller";
-import { useNavigate } from "react-router-dom";
 import ForgotPasswordModal from "./ForgotPasswordModal";
+import { useEffect, useState } from "react";
+import { userLogin } from "../features/admins/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-    const {user,setUser} = useContext(AuthContext);
-    const navigate= useNavigate();
-    const [isForgotPasswordModalOpen,setIsForgotPasswordModalOpen] =useState(false);
-  
-  
 
+    const [isForgotPasswordModalOpen,setIsForgotPasswordModalOpen] =useState(false);
+    const {data, isLoading, error}=useSelector(state=>state.userInfo);
+    const dispatch= useDispatch();
+    const navigate= useNavigate();
+  
+  
   const {
     register,
     handleSubmit,
@@ -27,24 +28,17 @@ const LoginPage = () => {
     },
   });
 
-  const onSubmit = (data) => {
-    // Making a POST request to '/admin' endpoint with the data
-    postApiCall('/user/login', data)
-       .then(response => {
-          // process the response here
-          if(response.status === 200) {
-          setUser(response.data);
-          navigate('/');
-          }
-       })
-       .catch(error => {
-          console.error('Error:', error);
-       });
- };
+
+  const onSubmit = (data) =>  dispatch(userLogin(data));
+ 
+  useEffect(()=>{
+    if(data) navigate('/');
+
+  },[data]);
 
  const handleForgetPassword =()=>{
   setIsForgotPasswordModalOpen(true);
-  
+ 
  }
 
   return (
